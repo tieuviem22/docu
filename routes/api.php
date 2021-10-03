@@ -23,3 +23,5 @@ Route::post('/upload/article',[ArticleController::class, 'store']);
 // Route::get('/upload','ArticleController@store');
 
 Route::post('/auth/register',[ApiUserController::class, 'Register']);
+Route::post('/auth/login',[ApiUserController::class, 'Login']);
+Route::get('/auth/infouser',[ApiUserController::class, 'userInfo']);
