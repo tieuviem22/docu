@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\ApiRegisterRequest;
@@ -13,12 +12,29 @@ use Illuminate\Support\Facades\Auth;
 class ApiUserController extends Controller
 {
     //
-    public function Register(ApiRegisterRequest $request) {
-        $user = new User;
-        $user->fill($request->all());
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return response()->json($user);
+    public function Register(Request $request) {
+       
+        // if(count(User::where))
+        $checkEmail = User::where('email', $request->email)->get();
+        if(count($checkEmail) > 0) {
+            return response() -> json(
+                [
+                     'status' => 402,
+                     'message' => 'The Email was registered ',
+                 ]
+             );
+        }else {
+            $user = new User;
+            $user->fill($request->all());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return response() -> json(
+            [
+                    'status' => 200,
+                    'message' => 'Register successfully',
+                ]
+            );
+        }
     }
     public function Login(ApiLoginRequest $request) {
         if(Auth::attempt([
@@ -27,7 +43,15 @@ class ApiUserController extends Controller
         ])) {
             $user = User::whereEmail($request->email)->first();
             $user->token = $user->createToken('App')->accessToken;
-            return response()->json($user);
+            
+            $result = [
+                'status' => 200,
+                'message' => 'Login successfully',
+                'token' => $user->token,
+                'info' => $user
+            ];
+            return response()->json( $result
+            );
         }
        $error = [
            'status' => 401,

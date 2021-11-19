@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoController;
+use App\Http\Controllers\PbController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('welcome');
+});
+
+
+
+
+// Route::name('/go')->group(function () {
+Route::get('/go/offerid={offerid}&sub1={sub1}',[GoController::class, 'index']);
+// });
+
+Route::get('/pb/clickid={click_id}&payout={payout}',[PbController::class, 'index']);
+
+

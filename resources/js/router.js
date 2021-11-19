@@ -10,7 +10,13 @@ export default new Router({
         {
             path: '/',
             // redirect: '/auth',
-            component:Home
+            component:Home,
+            children: [
+                {
+                  path: 'login',
+                  component: Signin,
+                },
+            ]
         }
     ]
 })
