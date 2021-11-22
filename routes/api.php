@@ -51,20 +51,20 @@ Route::post('/manage/create/vps', [ManageController::class, 'CreateVps'])->middl
 
 // manage offer api
 
-Route::get('/manage/offer/{status}', [OfferController::class, 'GetOffer']);
+Route::get('/manage/offer/{status}', [OfferController::class, 'GetOffer'])->middleware('auth:api');;
 // Route::get('/manage/offer/active', [OfferController::class, 'GetOfferActive']);
 // Route::get('/manage/offer/disabled', [OfferController::class, 'GetOfferDisabled']);
-Route::post('/manage/create/offer', [OfferController::class, 'CreateOffer']);
-Route::post('/manage/edit/offer', [OfferController::class, 'EditOffer']);
-Route::post('/manage/delete/offer', [OfferController::class, 'DeleteOffer']);
+Route::post('/manage/create/offer', [OfferController::class, 'CreateOffer'])->middleware('auth:api');;
+Route::post('/manage/edit/offer', [OfferController::class, 'EditOffer'])->middleware('auth:api');;
+Route::post('/manage/delete/offer', [OfferController::class, 'DeleteOffer'])->middleware('auth:api');;
 
 
 // manage country api
 
-Route::get('/manage/country', [CountryController::class, 'GetCountry']);
-Route::post('/manage/create/country', [CountryController::class, 'CreateCountry']);
-Route::post('/manage/edit/country', [CountryController::class, 'EditCountry']);
-Route::post('/manage/delete/country', [CountryController::class, 'DeleteCountry']);
+Route::get('/manage/country', [CountryController::class, 'GetCountry'])->middleware('auth:api');;
+Route::post('/manage/create/country', [CountryController::class, 'CreateCountry'])->middleware('auth:api');;
+Route::post('/manage/edit/country', [CountryController::class, 'EditCountry'])->middleware('auth:api');;
+Route::post('/manage/delete/country', [CountryController::class, 'DeleteCountry'])->middleware('auth:api');;
 
 
 // manage ipqs api
@@ -77,7 +77,7 @@ Route::post('/manage/delete/ipqs', [IpqsController::class, 'DeleteIpqs']);
 
 // manage conversion api
 
-Route::get('/manage/conversion', [ConversionController::class, 'GetConversion']);
+Route::get('/manage/conversion/{time}', [ConversionController::class, 'GetConversion']);
 Route::post('/manage/create/conversion', [ConversionController::class, 'CreateConversion']);
 Route::post('/manage/edit/conversion', [ConversionController::class, 'EditConversion']);
 Route::post('/manage/delete/conversion', [ConversionController::class, 'DeleteConversion']);

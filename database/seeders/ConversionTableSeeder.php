@@ -17,11 +17,18 @@ class ConversionTableSeeder extends Seeder
     {
         //
         Conversion::create([
-            "id" => "fajalkfahahfhkafkak",
+            "id" => "fffajalkfahahfhkafkak",
             "offer_id" => "1",
-            "click_id" => "618e8cdff92ca00001eadd50",
+            "click_id" => "118e8cdff92ca00001eadd508",
             "payout" => "1",
-            "time" => Carbon::now('Asia/Ho_Chi_Minh')
+            "time" => Carbon::now('America/New_York')
+        ]);
+        Conversion::create([
+            "id" => "ddfajalkfahahfhkafkak",
+            "offer_id" => "1",
+            "click_id" => "218e8cdff92ca00001eadd508",
+            "payout" => "1",
+            "time" => Carbon::now('America/New_York')
         ]);
     }
 }
