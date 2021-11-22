@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Models\Vps;
 use App\Models\Models\Offer;
+use App\Models\Models\Country;
+use App\Models\Models\Network;
 
 use Illuminate\Http\Request;
 
@@ -13,22 +15,31 @@ class ManageController extends Controller
         $getOffer = Offer::select('id', 'name_offer')->get();
         return $getOffer;
     }
+    public function GetCountry() {
+        $getOffer = Country::select('id', 'name_country')->get();
+        return $getOffer;
+    }
+    public function GetNetwork() {
+        $getOffer = Network::select('id', 'name_network')->get();
+        return $getOffer;
+    }
 
 
     public function GetVps() {
-        $vps = Vps::select('vps.id','vps.vps_name', 'vps.ip_address', 'vps.proxy', 'offers.name_offer')
+        $vps = Vps::select('vps.id','vps.vps_name', 'vps.ip_address', 'vps.proxy', 'offers.name_offer', 'vps.offer_id')
         ->leftJoin('offers','offers.id','=','vps.offer_id')
         ->get();
         return response() -> json($vps); 
     }
     public function EditVps(Request $request) {
+        date_default_timezone_set('America/New_York');
         
         $vps = Vps::where('id',$request->id)->get();
         if(count($vps) < 0 ) {
             return response() -> json(
                 [
                     'status' => 404,
-                    'message' => 'Not found id vps',
+                    'message' => 'Not found vps',
                 ]
             );
         }
@@ -71,7 +82,7 @@ class ManageController extends Controller
             return response() -> json(
                 [
                     'status' => 404,
-                    'message' => 'Not found id vps',
+                    'message' => 'Not found vps',
                 ]
             );
         }
@@ -96,6 +107,7 @@ class ManageController extends Controller
 
     }
     public function CreateVps(Request $request) {
+        date_default_timezone_set('America/New_York');
         if(!$request->offer_id || !$request->vps_name || !$request->proxy || !$request->ip_address) {
             return response() -> json(
                 [
@@ -104,16 +116,19 @@ class ManageController extends Controller
                 ]
             );
         }
-    //    Vps::create([
-    //         'vps_name' => $request->vps_name,
-    //         'ip_address' => $request->ip_address,
-    //         'proxy' => $request->proxy,
-    //         'offer_id' => $request->offer_id
-    //    ])  ;             
+        $vps = Vps::where('vps_name', $request->vps_name)->get();
+
+        if(count($vps) > 0 ){
+            return response() -> json(
+                [
+                    'status' => 404,
+                    'message' => 'Vps_name already exist',
+                ]
+            );
+        }
+          
         $newVps = new Vps;
         $newVps->fill($request->all());
-
-        // return $newVps;
         $newVps->save();
 
 

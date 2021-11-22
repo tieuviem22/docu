@@ -17,11 +17,18 @@ class ClickTableSeeder extends Seeder
     {
         //
         Click::create([
-            'id' => '618e8cdff92ca00001eadd508',
+            'id' => '118e8cdff92ca00001eadd508',
             'offer_id' => 1,
             'ip_address' => '127.0.0.1',
             'sub1' => '1111',
-            'time' => Carbon::now('Asia/Ho_Chi_Minh')
+            'time' => Carbon::now('America/New_York')
+        ]);
+        Click::create([
+            'id' => '218e8cdff92ca00001eadd508',
+            'offer_id' => 1,
+            'ip_address' => '127.0.0.1',
+            'sub1' => '1111',
+            'time' => Carbon::now('America/New_York')
         ]);
     }
 }

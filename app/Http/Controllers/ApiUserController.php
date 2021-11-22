@@ -13,6 +13,7 @@ class ApiUserController extends Controller
 {
     //
     public function Register(Request $request) {
+        date_default_timezone_set('America/New_York');
        
         // if(count(User::where))
         $checkEmail = User::where('email', $request->email)->get();

@@ -31,17 +31,17 @@ class GoController extends Controller
             'sub1' => $sub1,
             'ip_address' => $request->ip(),
             'useragent' => $request->header('user-agent'),
-            'click_time' => Carbon::now('Asia/Ho_Chi_Minh')
+            'click_time' => Carbon::now('America/New_York')
 
         ];
-
+        // print_r($result);
         // $sourceid = 11;
       
 
 
         $date1 = new DateTime($result["click_time"]);
 
-
+        echo date_format($date1, 'Y-m-d H:i:s');
         //check ip đã có truy cập vào offer tương ứng trong vòng 12 tiếng chưa
         $checkClick = Click::where('offer_id', $result['offer_id'])
             ->where('ip_address',$result['ip_address'] )->get();
@@ -167,16 +167,6 @@ class GoController extends Controller
             header('Location: https://adswapper.g2afse.com/click?pid='.$clickid.'&offer_id='.$result['offer_id'].'&sub1='.$result['sub1'].'&sub5='.$sourceid.'/');
             exit;
         }
-
-
-
-
-        // return $getSourceId;
-
-
-        
-        
-        // return response() -> json($clickid);
     }
 
 }
